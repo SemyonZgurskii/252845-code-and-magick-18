@@ -6,7 +6,7 @@ var CLOUD_X = 100;
 var CLOUD_Y = 10;
 var GAP = 10;
 var FONT_GAP = 20;
-var BAR_WIDTH = 50;
+var BAR_WIDTH = 40;
 var BAR_MAX_HEIGHT = 150;
 var BAR_GAP = 50;
 
@@ -14,7 +14,6 @@ var BAR_GAP = 50;
 var getMaxElement = function (arr) {
   var maxElement = 0;
   for (var i = 0; i < arr.length; i++) {
-    // maxElement < arr[i] ? maxElement = arr[i] : maxElement = maxElement;
     maxElement = maxElement < arr[i] ? arr[i] : maxElement;
   }
   return maxElement;
@@ -40,7 +39,7 @@ window.renderStatistics = function (ctx, players, times) {
     var barHeight = times[i] * BAR_MAX_HEIGHT / maxTime;
     var barY = CLOUD_Y + CLOUD_HEIGHT - GAP - FONT_GAP - BAR_MAX_HEIGHT + (BAR_MAX_HEIGHT - barHeight);
     var barColor = 'hsl(235, ' + (Math.random() * 100) + '%, 70%)';
-    var barX = CLOUD_X + GAP * 2 + (BAR_WIDTH + BAR_GAP) * i;
+    var barX = CLOUD_X + GAP * 5 + (BAR_WIDTH + BAR_GAP) * i;
 
     ctx.fillStyle = '#000';
     ctx.fillText(players[i], barX, CLOUD_Y + CLOUD_HEIGHT - GAP);
