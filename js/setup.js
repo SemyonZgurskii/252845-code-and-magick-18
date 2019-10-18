@@ -4,6 +4,7 @@
 
   // общие
   var fragment = document.createDocumentFragment();
+  var modalUserDialog = window.modal.userDialog;
 
   // персонаж
 
@@ -18,12 +19,12 @@
 
   // __персонаж в разметке
 
-  var wizardCoat = window.dialog.userDialog.querySelector('.wizard-coat');
-  var wizardCoatInput = window.dialog.userDialog.querySelector('input[name="coat-color"]');
-  var wizardEyes = window.dialog.userDialog.querySelector('.wizard-eyes');
-  var wizardEyesInput = window.dialog.userDialog.querySelector('input[name="eyes-color"]');
-  var fireballColor = window.dialog.userDialog.querySelector('.setup-fireball-wrap');
-  var fireballColorInput = window.dialog.userDialog.querySelector('input[name="fireball-color"]');
+  var wizardCoat = modalUserDialog.querySelector('.wizard-coat');
+  var wizardCoatInput = modalUserDialog.querySelector('input[name="coat-color"]');
+  var wizardEyes = modalUserDialog.querySelector('.wizard-eyes');
+  var wizardEyesInput = modalUserDialog.querySelector('input[name="eyes-color"]');
+  var fireballColor = modalUserDialog.querySelector('.setup-fireball-wrap');
+  var fireballColorInput = modalUserDialog.querySelector('input[name="fireball-color"]');
 
   var similarListElement = document.querySelector('.setup-similar-list');
   var similarWizardTemplate = document.querySelector('#similar-wizard-template')
@@ -62,7 +63,7 @@
   }
   similarListElement.appendChild(fragment);
 
-  window.dialog.userDialog.querySelector('.setup-similar').classList.remove('hidden');
+  modalUserDialog.querySelector('.setup-similar').classList.remove('hidden');
 
   // НАСТРОЙКА ЦВЕТОВ ПЕРСОНАЖА
 

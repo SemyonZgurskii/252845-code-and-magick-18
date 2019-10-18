@@ -5,14 +5,11 @@
   var ESC_KEYCODE = 27;
   var ENTER_KEYCODE = 13;
 
-  window.dialog = {
-    userDialog: document.querySelector('.setup')
-  };
-
+  var userDialog = document.querySelector('.setup');
   var userDialogOpen = document.querySelector('.setup-open');
-  var userDialogClose = window.dialog.userDialog.querySelector('.setup-close');
-  var userNameInput = window.dialog.userDialog.querySelector('.setup-user-name');
-  var dialogHandler = window.dialog.userDialog.querySelector('.upload');
+  var userDialogClose = userDialog.querySelector('.setup-close');
+  var userNameInput = userDialog.querySelector('.setup-user-name');
+  var dialogHandler = userDialog.querySelector('.upload');
 
   var onPopupEscPress = function (evt) {
     if (evt.keyCode === ESC_KEYCODE && evt.target !== userNameInput) {
@@ -21,17 +18,17 @@
   };
 
   var openPopup = function () {
-    window.dialog.userDialog.classList.remove('hidden');
+    userDialog.classList.remove('hidden');
     document.addEventListener('keydown', onPopupEscPress);
-    window.basicX = window.dialog.userDialog.offsetLeft;
-    window.basicY = window.dialog.userDialog.offsetTop;
+    window.basicX = userDialog.offsetLeft;
+    window.basicY = userDialog.offsetTop;
   };
 
   var closePopup = function () {
-    window.dialog.userDialog.classList.add('hidden');
+    userDialog.classList.add('hidden');
     document.addEventListener('keydown', onPopupEscPress);
-    window.dialog.userDialog.style.left = window.basicX + 'px';
-    window.dialog.userDialog.style.top = window.basicY + 'px';
+    userDialog.style.left = window.basicX + 'px';
+    userDialog.style.top = window.basicY + 'px';
   };
 
   userDialogOpen.addEventListener('click', function () {
@@ -99,8 +96,8 @@
         y: moveEvt.clientY
       };
 
-      window.dialog.userDialog.style.top = (window.dialog.userDialog.offsetTop - shift.y) + 'px';
-      window.dialog.userDialog.style.left = (window.dialog.userDialog.offsetLeft - shift.x) + 'px';
+      userDialog.style.top = (userDialog.offsetTop - shift.y) + 'px';
+      userDialog.style.left = (userDialog.offsetLeft - shift.x) + 'px';
     };
 
     var onMouseUp = function (upEvt) {
@@ -123,4 +120,11 @@
     document.addEventListener('mouseup', onMouseUp);
   });
 
+
+  window.modal = {
+    userDialog: userDialog
+  };
+
+
 })();
+
