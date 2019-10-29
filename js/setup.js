@@ -3,18 +3,16 @@
 (function () {
 
   // общие
-  var fragment = document.createDocumentFragment();
+  // var fragment = document.createDocumentFragment();
   var modalUserDialog = window.modal.userDialog;
 
   // персонаж
 
-  var WIZARD_NAMES = ['Иван', 'Хуан Себастьян', 'Мария', 'Кристф', 'Виктор', 'Юлия', 'Люпита', 'Вашингтон'];
-  var WIZARD_SECOND_NAMES = ['да Марья', 'Верон', 'Мирабелла', 'Вальц', 'Онопко', 'Топольницкая', 'Нионго', 'Ирвинг'];
   var COAT_COLORS = ['rgb(101, 137, 164', 'rgb(241, 43, 107]', 'rgb(146, 100, 161)', 'rgb(56, 159, 117', 'rgb(215, 210, 55)', 'rgb(0, 0, 0)'];
   var EYES_COLORS = ['black', 'red', 'blue', 'yellow', 'green'];
   var FIREBALL_COLORS = ['#ee4830', '#30a8ee', '#5ce6c0', '#e848d5', '#e6e848'];
 
-  var wizards = [];
+  // var wizards = [];
   var wizardsQuantity = 4;
 
   // __персонаж в разметке
@@ -38,32 +36,15 @@
 
   // ГЕНЕРАЦИЯ ХАРАКТЕРИСТИК ПЕРСОНАЖА
 
-  document.querySelector('.setup-similar').classList.remove('hidden');
-
-
-  for (var i = 0; i < wizardsQuantity; i++) {
-    wizards[i] = {};
-    wizards[i].name = WIZARD_NAMES[Math.floor(Math.random() * (WIZARD_NAMES.length - 1))] + ' ' + WIZARD_SECOND_NAMES[Math.floor(Math.random() * (WIZARD_SECOND_NAMES.length - 1))];
-    wizards[i].coatColor = COAT_COLORS[Math.floor(Math.random() * (COAT_COLORS.length - 1))];
-    wizards[i].eyesColor = EYES_COLORS[Math.floor(Math.random() * (EYES_COLORS.length - 1))];
-  }
-
   var renderWizard = function (wizard) {
     var wizardElement = similarWizardTemplate.cloneNode(true);
 
     wizardElement.querySelector('.setup-similar-label').textContent = wizard.name;
-    wizardElement.querySelector('.wizard-coat').style.fill = wizard.coatColor;
+    wizardElement.querySelector('.wizard-coat').style.fill = wizard.colorCoat;
     wizardElement.querySelector('.wizard-eyes').style.fill = wizard.eyesColor;
 
     return wizardElement;
   };
-
-  for (var j = 0; j < wizards.length; j++) {
-    fragment.appendChild(renderWizard(wizards[j]));
-  }
-  similarListElement.appendChild(fragment);
-
-  modalUserDialog.querySelector('.setup-similar').classList.remove('hidden');
 
   // НАСТРОЙКА ЦВЕТОВ ПЕРСОНАЖА
 
@@ -85,6 +66,29 @@
     fireballColorInput.value = color;
   };
 
+  var succesHandler = function (wizards) {
+    var fragment = document.createDocumentFragment();
+
+    for (var j = 0; j < wizardsQuantity; j++) {
+      fragment.appendChild(renderWizard(getRandomIndex(wizards)));
+    }
+    similarListElement.appendChild(fragment);
+
+    modalUserDialog.querySelector('.setup-similar').classList.remove('hidden');
+  };
+
+  var errorHandler = function (errorMessage) {
+    var node = document.createElement('div');
+    node.style = 'z-index: 100; margin: 0 auto; text-align: center; background-color: red;';
+    node.style.position = 'absolute';
+    node.style.left = 0;
+    node.style.right = 0;
+    node.style.fontSize = '30px';
+
+    node.textContent = errorMessage;
+    document.body.insertAdjacentElement('afterbegin', node);
+  };
+
   wizardCoat.addEventListener('click', function () {
     changeCoatColor();
   });
@@ -96,5 +100,8 @@
   fireballColor.addEventListener('click', function () {
     changeFireballColor();
   });
+
+
+  window.backend.load(succesHandler, errorHandler);
 
 })();

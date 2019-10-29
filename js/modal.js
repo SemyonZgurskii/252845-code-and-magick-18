@@ -6,6 +6,7 @@
   var ENTER_KEYCODE = 13;
 
   var userDialog = document.querySelector('.setup');
+  var setupForm = userDialog.querySelector('.setup-wizard-form');
   var userDialogOpen = document.querySelector('.setup-open');
   var userDialogClose = userDialog.querySelector('.setup-close');
   var userNameInput = userDialog.querySelector('.setup-user-name');
@@ -120,9 +121,15 @@
     document.addEventListener('mouseup', onMouseUp);
   });
 
+  setupForm.addEventListener('submit', function (evt) {
+    window.backend.upLoad(new FormData(setupForm), function () {
+      userDialog.classList.add('hidden');
+    });
+    evt.preventDefault();
+  });
 
   window.modal = {
-    userDialog: userDialog
+    userDialog: userDialog,
   };
 
 
